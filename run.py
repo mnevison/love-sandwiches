@@ -121,6 +121,7 @@ def calc_stock_data(data):
 
 
 
+
 def main():
     """
     Run all program functions
@@ -133,8 +134,22 @@ def main():
     sales_columns = get_last_sales()
     stock_data = calc_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    return stock_data
 
 
 print("Welcome to Love Sandwiches Data Automation\n")
-main()
+stock_data = main()
+
+def get_stock_values(data):
+    headings = SHEET.worksheet("surplus").row_values(1)
+
+
+    print("Make the following number of sandwiches for next market\n")
+    stock_dict = {headings[i] : data[i] for i in range(len(headings))}
+    
+    return stock_dict
+    
+stock_values = get_stock_values(stock_data)
+
+print(stock_values)
 
